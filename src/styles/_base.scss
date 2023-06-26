@@ -1,0 +1,11 @@
+@use 'variables' as v;
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: v.$primary-font;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
