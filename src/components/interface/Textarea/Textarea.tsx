@@ -1,6 +1,7 @@
 import React, { TextareaHTMLAttributes, forwardRef, ForwardedRef, useRef } from 'react'
 import { mergeRefs } from 'react-merge-refs'
 import classnames from 'classnames'
+import Label from '../Label'
 
 export interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   className?: string
@@ -8,7 +9,9 @@ export interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElemen
   type?: string
   id?: string
   label: string
+  description?: string
   name: string
+  value: string
   rows?: number
   onChange?: (...args: any[]) => void
 }
@@ -20,7 +23,9 @@ const Textarea: React.FC<TextareaProps> = forwardRef((props, ref: ForwardedRef<H
     type,
     id,
     label,
+    description,
     name,
+    value,
     rows = 4,
     onChange,
     ...rest
@@ -39,11 +44,12 @@ const Textarea: React.FC<TextareaProps> = forwardRef((props, ref: ForwardedRef<H
       className={classnames('textarea', className)}
       htmlFor={name}
     >
-        <span>{label}</span>
+        {label && <Label label={label} description={description} />}
         <textarea
             placeholder={placeholder}
             id={id}
             name={name}
+            value={value}
             rows={rows}
             ref={mergeRefs([ref, textareaRef])}
             onChange={handleOnChange}

@@ -1,0 +1,15 @@
+@use '../../../styles/variables' as v;
+
+.label {
+    color: v.$text-color;
+    margin-bottom: 0.5rem;
+
+    h3 {
+        font-size: v.$font-base;
+        font-weight: 700;
+    }
+
+    p {
+        font-size: v.$font-sm;
+    }
+}

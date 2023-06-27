@@ -1,8 +1,9 @@
 import React, { InputHTMLAttributes, forwardRef, ForwardedRef, useRef } from 'react'
 import { mergeRefs } from 'react-merge-refs'
 import classnames from 'classnames'
+import Label from '../Label/Label';
 
-type InputTypes = 'text' | 'date' | 'datetime-local' | 'time' | 'number' | 'email' | 'tel' | 'url'
+type InputTypes = 'text' | 'date' | 'datetime-local' | 'time' | 'number' | 'email' | 'tel' | 'url';
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string
@@ -10,7 +11,9 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   type?: InputTypes
   id?: string
   label: string
+  description?: string
   name: string
+  value: string
   onChange?: (...args: any[]) => void
 }
 
@@ -21,7 +24,9 @@ const Input: React.FC<InputProps> = forwardRef((props, ref: ForwardedRef<HTMLInp
     type = 'text',
     id,
     label,
+    description,
     name,
+    value,
     onChange,
     ...rest
   } = props
@@ -39,12 +44,13 @@ const Input: React.FC<InputProps> = forwardRef((props, ref: ForwardedRef<HTMLInp
       className={classnames('input', className)}
       htmlFor={name}
     >
-        <span>{label}</span>
+        {label && <Label label={label} description={description} />}
         <input
             placeholder={placeholder}
             type={type}
             id={id}
             name={name}
+            value={value}
             ref={mergeRefs([ref, inputRef])}
             onChange={handleOnChange}
             autoComplete="on"

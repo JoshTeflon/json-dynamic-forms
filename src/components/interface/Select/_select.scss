@@ -1,25 +1,26 @@
 @use '../../../styles/variables' as v;
-$-border-color: #213f7d33;
 
-label.textarea {
+label.select {
     width: 100%;
     color: v.$text-color;
     display: flex;
     flex-direction: column;
 
-    textarea {
+    select {
         width: 100%;
-        color: inherit;
-        font-size: v.$font-sm;
+        background: none;
+        font-weight: 400;
         padding: 0.75rem 1rem;
+        color: currentColor;
+        font-size: v.$font-sm;
+        line-height: 16px;
         border: 1px solid $-border-color;
         border-radius: 8px;
-        resize: vertical;
         outline: none;
 
-        &::placeholder {
-            color: v.$text-color;
-            opacity: 0.6;
+
+        &:focus {
+            outline: none;
         }
     }
 }

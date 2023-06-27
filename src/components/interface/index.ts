@@ -1,3 +1,7 @@
 export { default as Button } from './Button'
 export { default as Input } from './Input'
 export { default as Textarea } from './Textarea'
+export { default as Select } from './Select'
+export { default as FileInput } from './FileInput'
+export { default as CheckboxRadio } from './CheckboxRadio'
+export { default as Label } from './Label'

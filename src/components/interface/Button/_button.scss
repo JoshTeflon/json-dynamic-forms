@@ -51,11 +51,10 @@ button {
     &.link {
         color: inherit;
         background-color: transparent;
-        // font-family: v.$link-font;
         font-weight: 400;
         padding: 0;
         border: none;
-        width: auto;
+        width: fit-content;
         height: auto;
         text-decoration: underline;
     }

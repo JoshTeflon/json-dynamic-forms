@@ -5,3 +5,10 @@
 @import '/src/components/interface/Button/button';
 @import '/src/components/interface/Input/input';
 @import '/src/components/interface/Textarea/textarea';
+@import '/src/components/interface/Select/select';
+@import '/src/components/interface/FileInput/fileInput';
+@import '/src/components/interface/CheckboxRadio/checkbox-radio';
+@import '/src/components/interface/Label/label';
+
+// Pages
+@import '/src/pages/DynamicForm/dynamic-form';
