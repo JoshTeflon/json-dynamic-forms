@@ -1,2 +1,7 @@
 @import '/src/styles/base';
 @import '/src/styles/reset';
+
+// Components
+@import '/src/components/interface/Button/button';
+@import '/src/components/interface/Input/input';
+@import '/src/components/interface/Textarea/textarea';

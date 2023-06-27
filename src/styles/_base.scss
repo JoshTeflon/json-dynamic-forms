@@ -1,11 +1,20 @@
 @use 'variables' as v;
 
 * {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
 body {
+    min-height: 100vh;
+    max-width: 80rem;
+    margin: 0 auto;
     font-family: v.$primary-font;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+input, textarea, select {
+    font-family: v.$secondary-font;
 }

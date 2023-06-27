@@ -1,7 +1,7 @@
 @use '../../../styles/variables' as v;
 $-border-color: #213f7d33;
 
-label.input {
+label.textarea {
     width: 100%;
     color: v.$text-color;
     display: flex;
@@ -12,7 +12,7 @@ label.input {
         font-weight: 500;
     }
 
-    input {
+    textarea {
         width: 100%;
         height: 100%;
         color: inherit;
@@ -21,6 +21,7 @@ label.input {
         margin-top: 0.5rem;
         border: 1px solid $-border-color;
         border-radius: 8px;
+        resize: vertical;
         outline: none;
 
         &::placeholder {

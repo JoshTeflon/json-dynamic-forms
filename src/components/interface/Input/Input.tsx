@@ -1,24 +1,27 @@
-import React, { InputHTMLAttributes, ReactNode, forwardRef, useRef } from 'react'
-import classnames from 'classnames'
-import PropTypes from 'prop-types'
+import React, { InputHTMLAttributes, forwardRef, ForwardedRef, useRef } from 'react'
 import { mergeRefs } from 'react-merge-refs'
+import classnames from 'classnames'
+
+type InputTypes = 'text' | 'date' | 'datetime-local' | 'time' | 'number' | 'email' | 'tel' | 'url'
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string
   placeholder?: string
-  icon?: string | ReactNode
-  type?: string
-  border?: 'base' | 'lg'
+  type?: InputTypes
+  id?: string
+  label: string
+  name: string
   onChange?: (...args: any[]) => void
 }
 
-const Input: React.FC<InputProps> = forwardRef((props, ref) => {
+const Input: React.FC<InputProps> = forwardRef((props, ref: ForwardedRef<HTMLInputElement>) => {
   const {
     className,
     placeholder,
-    icon = null,
-    type,
-    border = 'base',
+    type = 'text',
+    id,
+    label,
+    name,
     onChange,
     ...rest
   } = props
@@ -32,37 +35,26 @@ const Input: React.FC<InputProps> = forwardRef((props, ref) => {
   }
 
   return (
-    <label className={classnames('input', className, border)}>
+    <label
+      className={classnames('input', className)}
+      htmlFor={name}
+    >
+        <span>{label}</span>
         <input
-            className={classnames({'icon-input': icon})}
             placeholder={placeholder}
-            onChange={handleOnChange}
             type={type}
+            id={id}
+            name={name}
+            ref={mergeRefs([ref, inputRef])}
+            onChange={handleOnChange}
             autoComplete="on"
             autoCorrect="off"
             autoCapitalize="off"
             spellCheck="false"
-            ref={mergeRefs([ref, inputRef])}
             {...rest}
         />
-        {icon && (
-          <span>
-            {icon}
-          </span>
-        )}
     </label>
   )
 })
-
-Input.displayName = 'Input'
-
-Input.propTypes = {
-  className: PropTypes.string,
-  placeholder: PropTypes.string,
-  icon: PropTypes.any,
-  type: PropTypes.string,
-  border: PropTypes.oneOf(['base', 'lg']),
-  onChange: PropTypes.func,
-}
 
 export default Input
