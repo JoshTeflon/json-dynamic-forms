@@ -267,7 +267,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ className, formDefinition, fo
 							key={field?.label}
 						>
 							<Input
-								label={field?.label}
+								label={field?.validation?.required ? `${field?.label}*` : field?.label}
 								description={field?.description}
 								name={field?.name}
 								id={field?.id}
@@ -286,7 +286,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ className, formDefinition, fo
 							key={field?.label}
 						>
 							<Input
-								label={field?.label}
+								label={field?.validation?.required ? `${field?.label}*` : field?.label}
 								description={field?.description}
 								name={field?.name}
 								id={field?.id}
@@ -306,7 +306,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ className, formDefinition, fo
 							key={field?.label}
 						>
 							<Input
-								label={field?.label}
+								label={field?.validation?.required ? `${field?.label}*` : field?.label}
 								description={field?.description}
 								name={field?.name}
 								id={field?.id}
@@ -327,7 +327,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ className, formDefinition, fo
 							key={field?.label}
 						>
 							<Input
-								label={field?.label}
+								label={field?.validation?.required ? `${field?.label}*` : field?.label}
 								description={field?.description}
 								name={field?.name}
 								id={field?.id}
@@ -349,7 +349,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ className, formDefinition, fo
 							key={field?.label}
 						>
 							<Input
-								label={field?.label}
+								label={field?.validation?.required ? `${field?.label}*` : field?.label}
 								description={field?.description}
 								name={field?.name}
 								id={field?.id}
@@ -369,7 +369,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ className, formDefinition, fo
 							key={field?.label}
 						>
 							<Textarea
-								label={field?.label}
+								label={field?.validation?.required ? `${field?.label}*` : field?.label}
 								description={field?.description}
 								name={field?.name}
 								id={field?.id}
@@ -391,7 +391,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ className, formDefinition, fo
 						>
 							<Label
 								id={field?.id}
-								label={field?.label}
+								label={field?.validation?.required ? `${field?.label}*` : field?.label}
 								description={field?.description}
 							/>
 							{
@@ -435,7 +435,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ className, formDefinition, fo
 								className='dynamic-form__page__section--input'
 							>
 								<Select
-									label={field?.label}
+									label={field?.validation?.required ? `${field?.label}*` : field?.label}
 									description={field?.description}
 									name={field?.name}
 									id={field?.id}
@@ -455,7 +455,8 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ className, formDefinition, fo
 								className='dynamic-form__page__section--input'
 							>
 								<FileInput
-									label={field?.label}
+									key={field?.label}
+									label={field?.validation?.required ? `${field?.label}*` : field?.label}
 									description={field?.description}
 									name={field?.name}
 									id={field?.id}
@@ -479,7 +480,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ className, formDefinition, fo
 							>
 								<FileInput
 									key={field?.label}
-									label={field?.label}
+									label={field?.validation?.required ? `${field?.label}*` : field?.label}
 									description={field?.description}
 									name={field?.name}
 									id={field?.id}
