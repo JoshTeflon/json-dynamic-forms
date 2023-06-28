@@ -38,6 +38,7 @@ const CheckboxRadio: React.FC<CheckboxRadioProps> = forwardRef(({
             className='checkbox-radio__input'
             id={id}
             name={name}
+            value={id}
             ref={mergeRefs([ref, checkboxRadioRef])}
             checked={checked}
             onChange={handleOnChange}

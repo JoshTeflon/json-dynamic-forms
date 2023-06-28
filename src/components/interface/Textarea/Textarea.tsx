@@ -12,6 +12,7 @@ export interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElemen
   description?: string
   name: string
   value: string
+  error?: string
   rows?: number
   onChange?: (...args: any[]) => void
 }
@@ -26,6 +27,7 @@ const Textarea: React.FC<TextareaProps> = forwardRef((props, ref: ForwardedRef<H
     description,
     name,
     value,
+    error,
     rows = 4,
     onChange,
     ...rest
@@ -55,6 +57,7 @@ const Textarea: React.FC<TextareaProps> = forwardRef((props, ref: ForwardedRef<H
             onChange={handleOnChange}
             {...rest}
         />
+        {error && <p className='input__error'>{error}</p>}
     </label>
   )
 })

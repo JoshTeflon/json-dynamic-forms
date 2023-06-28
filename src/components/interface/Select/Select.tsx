@@ -12,6 +12,7 @@ interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
     description?: string
     name: string
     id?: string
+    error?: string
 }
 
 const Select: React.FC<SelectProps> = forwardRef(({
@@ -23,6 +24,7 @@ const Select: React.FC<SelectProps> = forwardRef(({
     description,
     name,
     id,
+    error,
     ...rest
     }, ref: ForwardedRef<HTMLSelectElement>) => {
     const selectRef = useRef<HTMLSelectElement>(null)
@@ -60,6 +62,7 @@ const Select: React.FC<SelectProps> = forwardRef(({
                     </option>
                 ))}
             </select>
+            {error && <p className='input__error'>{error}</p>}
         </label>
     );
 });

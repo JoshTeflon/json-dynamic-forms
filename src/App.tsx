@@ -8,8 +8,11 @@ function App() {
 	console.log(formDefinition)
 
 	return (
-		<div>
-			<h1 style={{ textAlign: 'center' }}>Dynamic Form</h1>
+		<div style={{ margin: '1rem 0' }}>
+			<div style={{ textAlign: 'center' }}>
+				<h1 style={{ color: '#39cdcc' }}>{formDefinition?.meta?.name}</h1>
+				<p>{formDefinition?.meta?.Description}</p>
+			</div>
 			<DynamicForm formDefinition={formDefinition} formData={formData} />
 		</div>
 	);

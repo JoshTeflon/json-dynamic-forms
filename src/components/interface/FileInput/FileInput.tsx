@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes, ReactNode, forwardRef, ForwardedRef, useRef } from 'react'
+import React, { InputHTMLAttributes, forwardRef, ForwardedRef, useRef } from 'react'
 import { mergeRefs } from 'react-merge-refs'
 import classnames from 'classnames'
 import Button from '../Button';
@@ -15,6 +15,7 @@ export interface FileInputProps extends InputHTMLAttributes<HTMLInputElement> {
     id?: string
     type?: string
     accept?: FileAcceptFormats | any
+    error?: string
     onChange?: (...args: any[]) => void
     handleRemove?: () => void; 
 }
@@ -28,6 +29,7 @@ const FileInput: React.FC<FileInputProps> = forwardRef(({
     id,
     type = 'file',
     accept = '.doc,.docx,.pdf',
+    error,
     onChange,
     handleRemove,
     ...rest
@@ -72,6 +74,7 @@ const FileInput: React.FC<FileInputProps> = forwardRef(({
                     Remove
                 </Button>
             }
+            {error && <p className='input__error'>{error}</p>}
         </div>
     )
 })

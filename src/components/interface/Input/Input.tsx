@@ -14,6 +14,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   description?: string
   name: string
   value: string
+  error?: string
   onChange?: (...args: any[]) => void
 }
 
@@ -27,6 +28,7 @@ const Input: React.FC<InputProps> = forwardRef((props, ref: ForwardedRef<HTMLInp
     description,
     name,
     value,
+    error,
     onChange,
     ...rest
   } = props
@@ -59,6 +61,7 @@ const Input: React.FC<InputProps> = forwardRef((props, ref: ForwardedRef<HTMLInp
             spellCheck="false"
             {...rest}
         />
+        {error && <p className='input__error'>{error}</p>}
     </label>
   )
 })
