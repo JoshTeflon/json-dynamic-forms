@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, CheckboxRadio, FileInput, Input, Label, Select, Textarea } from '../../components/interface';
+import { Button, CheckboxRadio, FileInput, Input, Label, Modal, Select, Textarea } from '../../components/interface';
 import { appendFullStop, getMediaDuration } from '../../data/utils';
 import classnames from 'classnames';
 
@@ -22,10 +22,11 @@ interface DynamicFormProps {
 }
 
 const DynamicForm: React.FC<DynamicFormProps> = ({ className, formDefinition, formData }) => {
-	const [formValues, setFormValues] = useState<any>(formData || {});
+	const [formValues, setFormValues] = useState<any>({});
 	const [formErrors, setFormErrors] = useState<any>({});
 	const [hasErrors, setHasErrors] = useState<boolean>(true);
 	const [currentPage, setCurrentPage] = useState<number>(0);
+	const [openModal, setOpenModal] = useState<boolean>(false);
 
 	useEffect(() => {
 		setHasErrors(Object.values(formErrors).some((errors: any) => errors.length > 0))
@@ -40,6 +41,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ className, formDefinition, fo
 				return field;
 			}
 		}
+		
 		return null;
 	};
 
@@ -47,7 +49,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ className, formDefinition, fo
 	const validateField = (field: any, value: any) => {
 		const errors: string[] = [];
 	  
-		//String Validatin
+		//String Validation
 		if (!(field?.type === 'checkbox' || field?.type === 'radio')) {
 			if (field?.validation?.required && value?.trim() === '') {
 				errors.push('This field is required');
@@ -227,8 +229,6 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ className, formDefinition, fo
 
 	const handleFormSubmit = (event: React.FormEvent) => {
 		event.preventDefault();
-
-		console.log(hasErrors, 'hasErrors')
 		
 		if (hasErrors) {
 			alert('Form has errors. Please fix them before submitting.');
@@ -236,7 +236,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ className, formDefinition, fo
 		}
 
 		console.log('Form submitted:', formValues);
-		console.log('Errors:', formErrors);
+		setOpenModal(true)
 	};
 
 	// Control page views
@@ -274,6 +274,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ className, formDefinition, fo
 								value={value}
 								onChange={handleInputChange}
 								error={errors.length > 0 ? errors[0] : ''}
+								required={field?.validation?.required}
 							/>
 						</div>
 					);
@@ -293,6 +294,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ className, formDefinition, fo
 								onChange={handleInputChange}
 								type='datetime-local'
 								error={errors.length > 0 ? errors[0] : ''}
+								required={field?.validation?.required}
 							/>
 						</div>
 					);
@@ -312,6 +314,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ className, formDefinition, fo
 								onChange={handleInputChange}
 								type='tel'
 								error={errors.length > 0 ? errors[0] : ''}
+								required={field?.validation?.required}
 							/>
 						</div>
 					);
@@ -332,6 +335,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ className, formDefinition, fo
 								onChange={handleInputChange}
 								type='number'
 								error={errors.length > 0 ? errors[0] : ''}
+								required={field?.validation?.required}
 							/>
 						</div>
 					);
@@ -353,6 +357,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ className, formDefinition, fo
 								onChange={handleInputChange}
 								type={field?.type}
 								error={errors.length > 0 ? errors[0] : ''}
+								required={field?.validation?.required}
 							/>
 						</div>
 					);
@@ -372,6 +377,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ className, formDefinition, fo
 								onChange={handleInputChange}
 								rows={field?.validation?.number_of_lines || 4}
 								error={errors.length > 0 ? errors[0] : ''}
+								required={field?.validation?.required}
 							/>
 						</div>
 					);
@@ -389,15 +395,16 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ className, formDefinition, fo
 								description={field?.description}
 							/>
 							{
-								field?.options?.map((i: OptionProps) => {
+								field?.options?.map((option: OptionProps) => {
 									return (
 										<CheckboxRadio
-											key={i?.id}
+											key={option?.id}
 											name={field?.name}
-											id={i?.id}
-											label={i?.label}
+											id={option?.id}
+											label={option?.label}
 											onChange={handleInputChange}
 											type={field?.type}
+											checked={value === option?.id || value === true}
 										/>
 									)
 								})
@@ -433,8 +440,10 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ className, formDefinition, fo
 									name={field?.name}
 									id={field?.id}
 									options={field?.options}
+									value={value}
 									onChange={handleInputChange}
 									error={errors.length > 0 ? errors[0] : ''}
+									required={field?.validation?.required}
 								/>
 							</div>
 						);
@@ -455,6 +464,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ className, formDefinition, fo
 									accept={appendFullStop(field?.validation?.allowed)}
 									handleRemove={() => handleRemoveFile(field?.name)}
 									error={errors.length > 0 ? errors[0] : ''}
+									required={field?.validation?.required}
 								/>
 							</div>
 						);
@@ -478,6 +488,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ className, formDefinition, fo
 									accept={`${field.type}/*`}
 									handleRemove={() => handleRemoveFile(field?.name)}
 									error={errors.length > 0 ? errors[0] : ''}
+									required={field?.validation?.required}
 								/>
 							</div>
 						);
@@ -538,6 +549,14 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ className, formDefinition, fo
 				{renderPages(formDefinition.pages[currentPage])}
 				{renderActions(formDefinition.pages[currentPage]?.actions)}
 			</form>
+			<Modal isOpen={openModal} onClose={() => setOpenModal(false)}>
+				{Object.entries(formValues).map(([key, value]) => (
+					<div style={{ display: 'flex', alignItems: 'center', margin: '0.25rem 0' }} key={key}>
+						<span>{key}: </span>
+						<span style={{ fontWeight: 'medium', marginLeft: '0.25rem' }}>{String(value)}</span>
+					</div>
+				))}
+			</Modal>
 		</div>
 	);
 }

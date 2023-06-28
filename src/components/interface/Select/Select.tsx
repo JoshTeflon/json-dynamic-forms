@@ -12,6 +12,7 @@ interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
     description?: string
     name: string
     id?: string
+    value: string,
     error?: string
 }
 
@@ -24,6 +25,7 @@ const Select: React.FC<SelectProps> = forwardRef(({
     description,
     name,
     id,
+    value,
     error,
     ...rest
     }, ref: ForwardedRef<HTMLSelectElement>) => {
@@ -47,6 +49,7 @@ const Select: React.FC<SelectProps> = forwardRef(({
                 name={name}
                 onChange={handleOnChange}
                 ref={mergeRefs([ref, selectRef])}
+                value={value}
                 // multiple
                 {...rest}
             >

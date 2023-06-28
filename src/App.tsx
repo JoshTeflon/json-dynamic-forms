@@ -5,8 +5,6 @@ import './App.scss';
 function App() {
 	const formDefinition = JSON.parse(JSON.stringify(formData));
 
-	console.log(formDefinition)
-
 	return (
 		<div style={{ margin: '1rem 0' }}>
 			<div style={{ textAlign: 'center' }}>
